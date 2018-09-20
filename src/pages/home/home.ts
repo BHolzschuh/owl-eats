@@ -23,7 +23,7 @@ export class HomePage {
     this.afAuth.authState.subscribe(data => {
       if (data && data.email) {
         this.toast.create({
-          message: 'Welcome to OwlEats, ${data.email}',
+          message: 'Welcome to OwlEats, ' + data.email,
           duration: 3000
         }).present();
       }
