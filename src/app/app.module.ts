@@ -13,7 +13,6 @@ import { LoginPage } from '../pages/login/login';
 
 //service imports
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
-import { AuthServiceProvider } from '../providers/firebase-auth/auth-service';
 
 //firebase imports
 import { AngularFireModule } from 'angularfire2';
@@ -51,8 +50,7 @@ import { FIREBASE_CONFIG } from './app.firebase.config';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    FirebaseServiceProvider,
-    AuthServiceProvider
+    FirebaseServiceProvider
   ]
 })
 export class AppModule { }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
 import { User } from '../../models/user';
-import { AuthServiceProvider } from '../../providers/firebase-auth/auth-service';
+
+import { AngularFireAuth } from "angularfire2/auth";
 import { HomePage } from '../home/home';
 
 @IonicPage()
@@ -14,17 +14,20 @@ export class LoginPage {
 
   user = {} as User;
 
-  constructor(private afAuth: AuthServiceProvider,
+  constructor(private afAuth: AngularFireAuth,
     public navCtrl: NavController, public navParams: NavParams) {
   }
 
   async login(user: User) {
-    const result = await this.afAuth.loginUser(user)
-    if (result) {
-      this.navCtrl.setRoot(HomePage);
+    try {
+      const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
+      console.log(result);
+      if (result) {
+        this.navCtrl.setRoot(HomePage)
+      }
     }
-    else {
-      //add error message to screen
+    catch (e) {
+      console.error(e);
     }
   }
 
