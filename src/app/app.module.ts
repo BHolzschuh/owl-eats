@@ -4,24 +4,19 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { HttpModule } from '@angular/http';
+
+//page imports
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+
+//service imports
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 
-//for db handling
-import { HttpModule } from '@angular/http';
+//firebase imports
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
-//this mightnot be needed
-
-var firebaseConfig = {
-  apiKey: "AIzaSyAWa428xxa8z0COQMWLKnJ7wBnwMwSb9VI",
-  authDomain: "owl-eats.firebaseapp.com",
-  databaseURL: "https://owl-eats.firebaseio.com",
-  projectId: "owl-eats",
-  storageBucket: "owl-eats.appspot.com",
-  messagingSenderId: "291837764304"
-};
+import { FIREBASE_CONFIG } from './app.firebase.config';
 
 
 @NgModule({
@@ -33,7 +28,7 @@ var firebaseConfig = {
     BrowserModule,
     HttpModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -44,8 +39,8 @@ var firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     FirebaseServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
