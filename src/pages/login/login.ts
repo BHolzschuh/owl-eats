@@ -13,10 +13,11 @@ import { HomePage } from '../home/home';
 export class LoginPage {
 
   user = {} as User;
-
+  message;
   constructor(private afAuth: AngularFireAuth,
     public navCtrl: NavController, public navParams: NavParams) {
   }
+
 
   async login(user: User) {
     try {
@@ -28,6 +29,7 @@ export class LoginPage {
     }
     catch (e) {
       console.error(e);
+      this.message = e;
     }
   }
 
