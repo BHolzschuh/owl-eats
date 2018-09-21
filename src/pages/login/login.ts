@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user';
 
@@ -12,6 +13,7 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
+  email = new FormControl('');
   user = {} as User;
   message;
 
@@ -24,7 +26,7 @@ export class LoginPage {
   async login(user: User) {
     try {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.navCtrl.setRoot(HomePage)
       }
@@ -50,6 +52,18 @@ export class LoginPage {
 
   register() {
     this.navCtrl.push('RegisterPage');
+  }
+
+  validation_messages = {
+    'email': [
+      { type: 'required', message: 'Email address is required' },
+      { type: 'pattern', message: 'Please enter a valid email' }
+    ],
+    'password': [
+      { type: 'required', message: 'Password is required' },
+      { type: 'minlength', message: 'Password must be at least 6 characters' },
+      { type: 'pattern', message: 'Password must contain 1 upper & lowercase letter & 1 number' },
+    ]
   }
 
 }
