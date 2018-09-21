@@ -11,8 +11,19 @@
   <ion-item>
     <div *ngIf="message">{{message}}</div>
   </ion-item>
+
   <ion-item>
-    <ion-label floating>Email</ion-label>
+    <ion-label floating>First Name</ion-label>
+    <ion-input type="text" [(ngModel)]="user.first"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Last Name</ion-label>
+    <ion-input type="text" [(ngModel)]="user.last"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Email Address</ion-label>
     <ion-input type="text" [(ngModel)]="user.email"></ion-input>
   </ion-item>
 
