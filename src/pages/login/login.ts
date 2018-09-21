@@ -13,7 +13,10 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
-  email = new FormControl('');
+  loginForm = new FormGroup({
+    email: new FormControl('')
+
+  })
   user = {} as User;
   message;
 
