@@ -9,10 +9,6 @@
 <ion-content padding>
 
   <ion-item>
-    <div *ngIf="message">{{message}}</div>
-  </ion-item>
-
-  <ion-item>
     <ion-label floating>First Name</ion-label>
     <ion-input type="text" [(ngModel)]="user.first"></ion-input>
   </ion-item>
@@ -22,11 +18,13 @@
     <ion-input type="text" [(ngModel)]="user.last"></ion-input>
   </ion-item>
 
+  <div>{{emessage}}</div>
   <ion-item>
     <ion-label floating>Email Address</ion-label>
     <ion-input type="text" [(ngModel)]="user.email"></ion-input>
   </ion-item>
 
+  <div>{{pmessage}}</div>
   <ion-item>
     <ion-label floating>Password</ion-label>
     <ion-input type="password" [(ngModel)]="user.password"></ion-input>
