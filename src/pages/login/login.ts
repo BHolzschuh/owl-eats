@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user';
 
@@ -13,15 +13,20 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
-  loginForm = new FormGroup({
-    email: new FormControl('')
+  //Creating the FormGroup using FormBuilder
+  loginForm = this.fb.group({
+    email: ['', Validators.compose([
+      Validators.required,
+      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+    ])],
+    password: ['', Validators.required],
+  });
 
-  })
   user = {} as User;
   message;
 
   //constructs all necessary objects
-  constructor(private afAuth: AngularFireAuth,
+  constructor(private afAuth: AngularFireAuth, private fb: FormBuilder,
     public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -43,10 +48,10 @@ export class LoginPage {
   //compares error code with possible throws
   checkErrors(error: String) {
     if (error == "auth/invalid-email") {
-      this.message = "Please enter a valid email";
+      this.message = "Invalid Email Address";
     }
-    else if (error == "auth/user-not-found") {
-      this.message = "Incorrect email/password";
+    else if (error == "auth/user-not-found" || error == "auth/wrong-password") {
+      this.message = "Invalid Email/Password";
     }
     else if (error == "auth/argument-error") {
       this.message = "Please fill out both fields";
@@ -64,8 +69,6 @@ export class LoginPage {
     ],
     'password': [
       { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 6 characters' },
-      { type: 'pattern', message: 'Password must contain 1 upper & lowercase letter & 1 number' },
     ]
   }
 

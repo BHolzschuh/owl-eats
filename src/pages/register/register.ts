@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user';
 
@@ -20,13 +21,27 @@ export class Entry {
 })
 export class RegisterPage {
 
+  registerForm = this.fb.group({
+    first: ['', Validators.required],
+    last: ['', Validators.required],
+    email: ['', Validators.compose([
+      Validators.required,
+      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+    ])],
+    password: ['', Validators.compose([
+      Validators.required,
+      Validators.minLength(6),
+      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+    ])],
+  })
+
   user = {} as User;
   entry = {} as Entry;
   emessage = '';
   pmessage = '';
 
   //constructs all necessary objects
-  constructor(private afAuth: AngularFireAuth, private afData: AngularFireDatabase,
+  constructor(private afAuth: AngularFireAuth, private afData: AngularFireDatabase, private fb: FormBuilder,
     public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -60,7 +75,7 @@ export class RegisterPage {
 
   checkErrors(error: String) {
     if (error == "auth/invalid-email") {
-      this.emessage = "Please enter a valid email"
+      this.emessage = "Invalid Email Address"
       this.pmessage = '';
     }
     else if (error == "auth/weak-password") {
@@ -71,6 +86,24 @@ export class RegisterPage {
       this.emessage = "Please fill out all fields"
       this.pmessage = '';
     }
+  }
+
+  validation_messages = {
+    'first': [
+      { type: 'required', message: 'First name is required' },
+    ],
+    'last': [
+      { type: 'required', message: 'Last name is required' },
+    ],
+    'email': [
+      { type: 'required', message: 'Email address is required' },
+      { type: 'pattern', message: 'Please enter a valid email' }
+    ],
+    'password': [
+      { type: 'required', message: 'Password is required' },
+      { type: 'minlength', message: 'Password must be at least 6 characters' },
+      { type: 'pattern', message: 'Password must contain 1 upper & lowercase letter & 1 number' },
+    ],
   }
 
 }
