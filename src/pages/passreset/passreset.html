@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>passreset</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div *ngIf="isreset">
+    {{message}}
+  </div>
+  <div *ngIf="!isreset">
+    {{eMessage}}
+  </div>
+
+  <ion-item>
+    <ion-label floating>Email</ion-label>
+    <ion-input type="text" [formControl]="email" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+
+  <button ion-button block color="secondary" (click)="passReset(user)">Email Reset Password Link</button>
+
+</ion-content>

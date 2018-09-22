@@ -21,17 +21,18 @@ export class Entry {
 })
 export class RegisterPage {
 
+  //Creating the FormGroup using FormBuilder
   registerForm = this.fb.group({
     first: ['', Validators.required],
     last: ['', Validators.required],
     email: ['', Validators.compose([
       Validators.required,
-      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+      Validators.email,
     ])],
     password: ['', Validators.compose([
       Validators.required,
-      Validators.minLength(6),
-      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+      Validators.minLength(8),
+      Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$'),
     ])],
   })
 
@@ -73,6 +74,7 @@ export class RegisterPage {
     this.afData.list('/userInfo/').push(this.entry)
   }
 
+  //compares server side error code with possible throws
   checkErrors(error: String) {
     if (error == "auth/invalid-email") {
       this.emessage = "Invalid Email Address"
@@ -88,6 +90,8 @@ export class RegisterPage {
     }
   }
 
+  /* how to access different error messages for the user
+  *
   validation_messages = {
     'first': [
       { type: 'required', message: 'First name is required' },
@@ -96,14 +100,19 @@ export class RegisterPage {
       { type: 'required', message: 'Last name is required' },
     ],
     'email': [
-      { type: 'required', message: 'Email address is required' },
-      { type: 'pattern', message: 'Please enter a valid email' }
+      //{ type: 'required', message: 'Email address is required' },
+      { type: 'email', message: 'Please enter a valid email' }
     ],
     'password': [
-      { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 6 characters' },
-      { type: 'pattern', message: 'Password must contain 1 upper & lowercase letter & 1 number' },
+      //{ type: 'required', message: 'Password is required' },
+      { type: 'minlength', message: 'Invalid Password' },
+      { type: 'pattern', message: 'Invalid Password pattern' },
     ],
   }
+*/
+
+  //simplified error messages for email and pass
+  email_error = "Invalid Email Address";
+  pass_error = "Invalid Password";
 
 }

@@ -17,7 +17,7 @@ export class LoginPage {
   loginForm = this.fb.group({
     email: ['', Validators.compose([
       Validators.required,
-      Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+      //Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
     ])],
     password: ['', Validators.required],
   });
@@ -45,31 +45,38 @@ export class LoginPage {
     }
   }
 
-  //compares error code with possible throws
+  //compares server side error code with possible throws
   checkErrors(error: String) {
     if (error == "auth/invalid-email") {
       this.message = "Invalid Email Address";
     }
     else if (error == "auth/user-not-found" || error == "auth/wrong-password") {
-      this.message = "Invalid Email/Password";
+      this.message = "Incorrect Email/Password";
     }
     else if (error == "auth/argument-error") {
       this.message = "Please fill out both fields";
     }
   }
 
+  //sends the user to the register page
   register() {
     this.navCtrl.push('RegisterPage');
   }
 
+  resetPass() {
+    this.navCtrl.push('PassresetPage');
+  }
+
+  /* how to access different error messages for the user
+  * 
   validation_messages = {
     'email': [
       { type: 'required', message: 'Email address is required' },
-      { type: 'pattern', message: 'Please enter a valid email' }
+      { type: 'pattern', message: 'Invalid Email Address' }
     ],
     'password': [
       { type: 'required', message: 'Password is required' },
     ]
   }
-
+  */
 }

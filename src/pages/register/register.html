@@ -15,27 +15,11 @@
       <ion-input type="text" formControlName="first" [(ngModel)]="user.first"></ion-input>
     </ion-item>
 
-    <div class="validation-errors">
-      <ng-container *ngFor="let validation of validation_messages.first">
-        <div class="error-message" *ngIf="registerForm.get('first').hasError(validation.type) && (registerForm.get('first').touched || registerForm.get('first').dirty)">
-          {{validation.message}}
-        </div>
-      </ng-container>
-    </div>
-
 
     <ion-item>
       <ion-label floating>Last Name</ion-label>
       <ion-input type="text" formControlName="last" [(ngModel)]="user.last"></ion-input>
     </ion-item>
-
-    <div class="validation-errors">
-      <ng-container *ngFor="let validation of validation_messages.last">
-        <div class="error-message" *ngIf="registerForm.get('last').hasError(validation.type) && (registerForm.get('last').touched || registerForm.get('last').dirty)">
-          {{validation.message}}
-        </div>
-      </ng-container>
-    </div>
 
 
     <ion-item>
@@ -43,12 +27,8 @@
       <ion-input type="text" formControlName="email" [(ngModel)]="user.email"></ion-input>
     </ion-item>
 
-    <div class="validation-errors">
-      <ng-container *ngFor="let validation of validation_messages.email">
-        <div class="error-message" *ngIf="registerForm.get('email').hasError(validation.type) && (registerForm.get('email').touched || registerForm.get('email').dirty)">
-          {{validation.message}}
-        </div>
-      </ng-container>
+    <div class="validation-error" *ngIf="registerForm.get('email').invalid && registerForm.get('email').dirty">
+      {{email_error}}
     </div>
 
 
@@ -57,16 +37,19 @@
       <ion-input type="password" formControlName="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
 
-    <div class="validation-errors">
-      <ng-container *ngFor="let validation of validation_messages.password">
-        <div class="error-message" *ngIf="registerForm.get('password').hasError(validation.type) && (registerForm.get('password').touched || registerForm.get('password').dirty)">
-          {{validation.message}}
-        </div>
-      </ng-container>
+    <div class="validation-error" *ngIf="registerForm.get('password').invalid && registerForm.get('password').dirty">
+      {{pass_error}}
     </div>
 
 
-    <button ion-button block color="fau-red" [disabled]="!registerForm.valid" (click)="register(user)">Register</button>
+    <ion-item *ngIf="registerForm.invalid">
+      <p class="pass-text">Password must be at least eight characters including a<br>
+        number an uppercase letter and a lowercase letter.</p>
+    </ion-item>
+
+    <div *ngIf="registerForm.valid" class="register-button">
+      <button ion-button block color="fau-red" [disabled]="registerForm.invalid" (click)="register(user)">Register</button>
+    </div>
 
   </form>
 
