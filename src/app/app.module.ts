@@ -3,49 +3,55 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
+
+//page imports
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
+
+//service imports
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 
-//for db handling
-import { HttpModule } from '@angular/http';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+//firebase imports
 import { AngularFireModule } from 'angularfire2';
-//this mightnot be needed
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
-var firebaseConfig = {
-  apiKey: "AIzaSyAWa428xxa8z0COQMWLKnJ7wBnwMwSb9VI",
-  authDomain: "owl-eats.firebaseapp.com",
-  databaseURL: "https://owl-eats.firebaseio.com",
-  projectId: "owl-eats",
-  storageBucket: "owl-eats.appspot.com",
-  messagingSenderId: "291837764304"
-};
+//firebase config import
+import { FIREBASE_CONFIG } from './app.firebase.config';
+
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage,
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    ReactiveFormsModule,
+
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     FirebaseServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

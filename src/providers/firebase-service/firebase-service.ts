@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 
 @Injectable()
@@ -11,20 +11,20 @@ export class FirebaseServiceProvider {
 
 
 
-    getMenuItems(){
-      return this.afd.list('/menuItems/');
+  getMenuItems() {
+    return this.afd.list('/menuItems/');
 
-    }
+  }
 
-    addItem(name){
-      return this.afd.list('/menuItems/').push(name);
+  addItem(name) {
+    return this.afd.list('/menuItems/').push(name);
 
-    }
+  }
 
-    removeItem(id){
-      return this.afd.list('/menuItems/').remove(id);
+  removeItem(id) {
+    return this.afd.list('/menuItems/').remove(id);
 
-    }
+  }
 
 
 }
