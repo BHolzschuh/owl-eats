@@ -16,10 +16,11 @@ export class HomePage {
 
   constructor(private afAuth: AngularFireAuth, private toast: ToastController,
     public navCtrl: NavController, public firebaseService: FirebaseServiceProvider) {
-    this.menuItems = this.firebaseService.getMenuItems();
+    this.menuItems = this.firebaseService.getSpecificMenu();
   }
 
   ionViewWillLoad() {
+    /*
     this.afAuth.authState.subscribe(data => {
       if (data && data.email) {
         this.toast.create({
@@ -28,6 +29,7 @@ export class HomePage {
         }).present();
       }
     });
+    */
   }
 
   addItem() {

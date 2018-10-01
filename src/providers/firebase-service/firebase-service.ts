@@ -26,5 +26,14 @@ export class FirebaseServiceProvider {
 
   }
 
+  getSpecificMenu() {
+    return this.afd.list('/userInfo/', {
+      query: {
+        orderByChild: 'first',
+        eqalTo: 'brian',
+      }
+    });
+  }
+
 
 }
