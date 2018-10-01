@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
-import { FirebaseListObservable } from 'angularfire2/database';
-import { FirebaseServiceProvider } from "../../providers/firebase-service/firebase-service";
 
+import { FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database'
 import { AngularFireAuth } from 'angularfire2/auth';
+
+import { FirebaseServiceProvider } from "../../providers/firebase-service";
+
 
 @Component({
   selector: 'page-home',
@@ -11,14 +14,22 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 
 export class HomePage {
-  menuItems: FirebaseListObservable<any[]>;
+  items: FirebaseListObservable<any[]>;
   newItem = '';
 
   constructor(private afAuth: AngularFireAuth, private toast: ToastController,
-    public navCtrl: NavController, public firebaseService: FirebaseServiceProvider) {
-    this.menuItems = this.firebaseService.getMenuItems();
+    private db: AngularFireDatabase,
+    public navCtrl: NavController, public fbS: FirebaseServiceProvider) {
+    /*this.items = this.db.list('/userInfo/', {
+      query: {
+        orderByChild: 'first',
+        equalTo: 'test'
+      }
+    });*/
+    this.items = fbS.getSepcific('userInfo', 'first', 'brian');
   }
 
+  /*
   ionViewWillLoad() {
     this.afAuth.authState.subscribe(data => {
       if (data && data.email) {
@@ -29,6 +40,7 @@ export class HomePage {
       }
     });
   }
+  */
 
   addItem() {
     this.firebaseService.addItem(this.newItem);

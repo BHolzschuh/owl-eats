@@ -8,22 +8,22 @@
 
 <ion-content padding>
 
-    <ion-row>
-      <ion-col col-9>
-        <ion-item>
+  <ion-row>
+    <ion-col col-9>
+      <ion-item>
         <ion-input type="text" [(ngModel)]="newItem" placeholder="add menu item"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <button ion-button (click)="addItem()">add!</button>
-      </ion-col>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <button ion-button (click)="addItem()">add!</button>
+    </ion-col>
 
-    </ion-row>
+  </ion-row>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let item of menuItems | async">
+    <ion-item-sliding *ngFor="let item of items | async">
       <ion-item>
-        {{ item.$value }}
+        {{ item.first }}
       </ion-item>
       <ion-item-options side="right">
         <button ion-button color="danger" icon-only (click)="removeItem(item.$key)">

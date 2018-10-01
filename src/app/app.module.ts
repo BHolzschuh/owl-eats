@@ -12,7 +12,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
 //service imports
-import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
+import { FirebaseServiceProvider } from '../providers/firebase-service';
 
 //firebase imports
 import { AngularFireModule } from 'angularfire2';
