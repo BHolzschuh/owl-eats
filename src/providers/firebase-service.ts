@@ -9,7 +9,7 @@ export class FirebaseServiceProvider {
     console.log('yo waddup im a database');
   }
 
-  getSepcific(table, key, value) {
+  QueryTable(table, key, value) {
     return this.db.list(table, {
       query: {
         orderByChild: key,
@@ -18,19 +18,16 @@ export class FirebaseServiceProvider {
     })
   }
 
-  getMenuItems() {
-    return this.db.list('/menuItems/');
-
+  GetTable(table) {
+    return this.db.list(table);
   }
 
-  addItem(name) {
-    return this.db.list('/menuItems/').push(name);
-
+  AddToTable(table, data) {
+    return this.db.list(table).push(data);
   }
 
-  removeItem(id) {
-    return this.db.list('/menuItems/').remove(id);
-
+  RemoveItem(table, id) {
+    return this.db.list(table).remove(id);
   }
 
 

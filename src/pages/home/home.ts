@@ -26,7 +26,7 @@ export class HomePage {
         equalTo: 'test'
       }
     });*/
-    this.items = fbS.getSepcific('userInfo', 'first', 'brian');
+    this.items = fbS.QueryTable('userInfo', 'first', 'brian');
   }
 
   /*
@@ -43,11 +43,11 @@ export class HomePage {
   */
 
   addItem() {
-    this.firebaseService.addItem(this.newItem);
+    this.fbS.AddToTable('menuItems', this.newItem);
   }
 
   removeItem(id) {
-    this.firebaseService.removeItem(id);
+    this.fbS.RemoveItem('menuItems', id);
   }
 
 }

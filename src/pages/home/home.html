@@ -23,7 +23,7 @@
   <ion-list>
     <ion-item-sliding *ngFor="let item of items | async">
       <ion-item>
-        {{ item.first }}
+        {{ item.first }} {{ item.last }}
       </ion-item>
       <ion-item-options side="right">
         <button ion-button color="danger" icon-only (click)="removeItem(item.$key)">
